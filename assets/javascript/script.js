@@ -53,7 +53,7 @@ document.querySelector("#content-load").innerHTML = `
     <div class="card-result radius-all font-color">
       <code class="font-acme" id="result"></code>
     </div>
-    <br><button class="card-btn font-color" id="copy">Copy</button>
+    <br><button class="card-btn font-color" id="download">Download file</button>
   </div>
 </div>
 `;
@@ -170,5 +170,20 @@ document.getElementById('generate').onclick = () => {
 `;
 
   document.getElementById('result').innerHTML = manifestJSON;
-  copyTextAlert('copy', manifestJSON);
+  downloadFile('download', manifestJSON);
+}
+
+function downloadFile(id, text) {
+  document.getElementById(id).onclick = () => {
+    let linkContent = document.createElement('a');
+    let textContent = document.createElement('textarea');
+      textContent.value = text;
+    let fileContent = new Blob([textContent.value], { type: 'text/plain' });
+      linkContent.href = URL.createObjectURL(fileContent);
+      linkContent.download = 'manifest.json';
+      linkContent.click();
+    URL.revokeObjectURL(linkContent.href);
+    document.body.removeChild(textContent);
+    document.body.removeChild(linkContent);
+  }
 }
