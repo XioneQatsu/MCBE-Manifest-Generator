@@ -183,7 +183,5 @@ function downloadFile(id, text) {
       linkContent.download = 'manifest.json';
       linkContent.click();
     URL.revokeObjectURL(linkContent.href);
-    document.body.removeChild(textContent);
-    document.body.removeChild(linkContent);
   }
 }
